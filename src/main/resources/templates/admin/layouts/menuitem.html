@@ -1,0 +1,16 @@
+<html>
+    <li th:fragment="menuItem (data)" th:if="${data != null}" class="nav-item">
+        <a th:class="'nav-link ' + ${data.childrens != null ? 'collapsed' : ''}"
+            th:attr="data-bs-target='#' + ${data.menuTarget},data-bs-toggle= ${data.childrens.size() != 0} ? 'collapse' : ''"
+            th:href="${data.childrens.size == 0} ? ${data.link} : '#'">
+            <i th:if="${data.childrens.size() == 0}" class="bi bi-circle"></i>
+            <i th:class="${data.icon}"></i><span th:text="${data.name}"></span><i
+                th:class="${data.childrens.size() != 0 ? 'bi bi-chevron-down ms-auto': ''}"></i>
+        </a>
+        <ul th:id="${data.menuTarget}" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <th:block th:each="item:${data.childrens}">
+                <li th:replace="~{admin/layouts/menuitem.html :: menuItem(data = ${item})}"></li>
+            </th:block>
+        </ul>
+    </li>
+</html>

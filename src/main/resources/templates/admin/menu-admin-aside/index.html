@@ -1,0 +1,74 @@
+<main id="main" class="main" th:fragment="content">
+
+    <div class="pagetitle">
+        <h1>Danh sách Admin Menu</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">Home</a></li>
+                <li class="breadcrumb-item">Quản lý Admin Menu</li>
+                <li class="breadcrumb-item active">Danh sách</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ms-auto mb-lg-2">
+                    <a href="menus-aside/create" class="btn btn-primary radius-30 mt-2 mt-lg-0">
+                        <i class="bx bxs-plus-square"></i>Thêm Admin Menu</a>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Danh sách</h5>
+
+                        <!-- Table with stripped rows -->
+                        <table class="table datatable" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Tên</th>
+                                    <th scope="col">Thuộc Menu</th>
+                                    <th scope="col">Đường dẫn</th>
+                                    <th scope="col">Trạng thái</th>
+                                    <th scope="col">Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="item:${menuAsides}">
+                                    <th scope="row" th:text="${item.id}"></th>
+                                    <td th:text="${item.name != null} ?${item.name} : ''"></td>
+                                    <td th:text="${item.parent != null && item.parent != 0} ?${item.parent.name} : 'Cấp lớn nhất'"></td>
+                                    <td th:text="${item.link != null} ?${item.link}: ''"></td>
+                                    <td th:text="${item.active} ?'Hiện': 'Ẩn'"></td>
+                                    <td>
+                                        <a th:attr="href='menus-aside/edit?id=' + ${item.id}" title="Sửa">
+                                            <i class="bx bx-edit-alt me-1"></i>
+                                        </a>
+                                        <a data-bs-toggle="modal" data-bs-target="#deleteModal" title="Xoá"
+                                            th:attr="onclick='deleteModal(\'/admin/menus-aside/delete?id=' + ${item.id} + '\')'">
+                                            <i class="bx bx-trash me-1"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Modal Delete -->
+    <div th:replace="~{__${modalDelete}__ :: modal_delete }"></div>
+    <!-- End Modal tables -->
+    <script th:inline="javascript">
+        function deleteModal(url) {
+            var deleteModalForm = document.querySelector('#deleteModal form');
+            deleteModalForm.action = url;
+        }
+    </script>
+</main>
+<script th:fragment="script_after"></script>

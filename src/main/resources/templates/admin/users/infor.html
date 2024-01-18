@@ -1,0 +1,127 @@
+<main id="main" class="main" th:fragment="content">
+
+    <div class="pagetitle">
+        <h1>Hồ sơ</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Hồ sơ</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+        <div class="row">
+
+            <div class="col">
+
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <!-- Bordered Tabs -->
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+
+                            <li class="nav-item">
+                                <button th:class="'nav-link ' + ${type == 'infor' ? 'active' : ''}" data-bs-toggle="tab"
+                                    data-bs-target="#profile-overview">Thông tin</button>
+                            </li>
+
+                            <li class="nav-item">
+                                <button th:class="'nav-link ' + ${type == 'editinfor' ? 'active' : ''}"
+                                    data-bs-toggle="tab" data-bs-target="#profile-edit">Chỉnh sửa
+                                    thông tin</button>
+                            </li>
+
+                            <li class="nav-item">
+                                <button th:class="'nav-link ' + ${type == 'password' ? 'active' : ''}"
+                                    data-bs-toggle="tab" data-bs-target="#profile-change-password">Đổi mật khẩu</button>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content pt-2">
+
+                            <div th:class="'tab-pane fade ' + ${type == 'infor' ? 'show active' : ''} + ' profile-overview'"
+                                id="profile-overview">
+                                <h5 class="card-title">Thông tin tài khoản</h5>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label ">Họ tên</div>
+                                    <div class="col-lg-9 col-md-8" th:text="${#ctx.session.userName}">Kevin Anderson</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Chức vụ</div>
+                                    <div class="col-lg-9 col-md-8" th:text="${#ctx.session.roleName}"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Email</div>
+                                    <div class="col-lg-9 col-md-8" th:text="${#ctx.session.email}"></div>
+                                </div>
+
+                            </div>
+
+                            <div th:class="'tab-pane fade ' + ${type == 'editinfor' ? 'show active' : ''} + ' profile-edit pt-3'" id="profile-edit">
+
+                                <!-- Profile Edit Form -->
+                                <form th:action= "@{'/admin/users/infor/edit'}" method="post">
+                                    <input type="text" name="id" th:value="${#authentication.principal.id}" hidden>
+                                    <div class="row mb-3">
+                                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Họ tên</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input name="name" type="text" class="form-control" id="fullName"
+                                                th:value="${#ctx.session.userName}">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input name="email" type="email" class="form-control" id="Email"
+                                                th:value="${#ctx.session.email}">
+                                        </div>
+                                    </div>
+
+                                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                </form><!-- End Profile Edit Form -->
+
+                            </div>
+
+                            <div th:class="'tab-pane fade ' + ${type == 'password' ? 'show active' : ''} + ' pt-3'" id="profile-change-password">
+                                <!-- Change Password Form -->
+                                <form th:action= "@{'/admin/users/infor/password'}" method="post">
+                                    <input type="text" name="id" th:value="${#authentication.principal.id}" hidden>
+                                    <div class="row mb-3">
+                                        <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Mật khẩu cũ</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input name="password" type="password" class="form-control"
+                                                id="currentPassword">
+                                                <div style="width:100%;margin-top:.25rem;font-size:80%;color:#dc3545" th:if= "${type == 'password' && errorMessger != null}" th:text="${errorMessger}"></div>
+                                                </div>
+                                        </div>
+
+                                    <div class="row mb-3">
+                                        <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Mật khẩu mới</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input name="newpassword" type="password" class="form-control"
+                                                id="newPassword">
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary">Thay đổi mật khẩu</button>
+                                    </div>
+                                </form><!-- End Change Password Form -->
+
+                            </div>
+
+                        </div><!-- End Bordered Tabs -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+<script th:fragment="script_after"></script>

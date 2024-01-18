@@ -1,0 +1,40 @@
+<div th:fragment="content">
+    <!-- ##### Breaking News Area Start ##### -->
+    <section th:replace="~{user/components/section-news.html :: section-news }"></section>
+    <!-- ##### Breaking News Area End ##### -->
+
+    <!-- Catagory -->
+    <div class="news-area section-padding-100-70" style="padding-top: 30px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-8 col-lg-9">
+                    <h5 style="text-align: center;" th:unless="${results != null}">Hiện không có bài viết này.</h5>
+                    <h5 th:if="${results != null}">Danh sách bài viết</h5>
+                    <!-- Single News Area -->
+                    <div th:each="item:${results}" class="single-blog-post d-flex flex-wrap style-5 mb-30">
+                        <!-- Blog Thumbnail -->
+                        <div class="blog-thumbnail" style="height: 230px;">
+                            <a th:href="@{'/bai-viet/' + ${item.id}}"><img th:src="@{'/file/' + ${item.image}}"
+                                    alt="" style="
+                                    height: 100%;
+                                    object-fit: cover;"></a>
+                        </div>
+
+                        <!-- Blog Content -->
+                        <div class="blog-content">
+                            <span class="post-date" th:text="${#dates.format(item.pulishDate, 'dd MMM, yyyy')}"></span>
+                            <a th:href="@{'/bai-viet/' + ${item.id}}" class="post-title" th:text="${item.title}"></a>
+                            <a class="post-author" th:text="${item.author != null} ? ${item.author.name} : ''"></a>
+                            <p th:text="${item.description != null} ? ${item.description}:''"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 col-lg-3">
+                    <div th:replace="~{user/components/noibat.html :: noibat }"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<main id="main" class="main" th:fragment="content">
+
+    <div class="pagetitle">
+        <h1>Chỉnh sửa quyền</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item">Quản lý quyền</li>
+                <li class="breadcrumb-item active">Chỉnh sửa quyền</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Biểu mẫu</h5>
+
+                        <!-- General Form Elements -->
+                        <form enctype="multipart/form-data" method="post">
+                            <input hidden type="text" name="id" th:value="${role.id}">
+                            <div class="row mb-3">
+                                <label for="inputName" class="col-sm-2 col-form-label">Tên quyền</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="name" th:value="${role.name}">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="inputDes" class="col-sm-2 col-form-label">Mô tả</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="description"
+                                        th:value="${role.description != null} ? ${role.description} : ''">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Xác nhận</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script th:fragment="script_after"></script>

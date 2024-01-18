@@ -1,0 +1,64 @@
+<main id="main" class="main" th:fragment="content">
+
+    <div class="pagetitle">
+        <h1>Chỉnh sửa thể loại</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item">Quản lý thể loại</li>
+                <li class="breadcrumb-item active">Chỉnh sửa thể loại</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Biểu mẫu</h5>
+
+                        <!-- General Form Elements -->
+                        <form enctype="multipart/form-data" method="post">
+                            <input hidden type="text" name="id" th:value="${category.id}">
+                            <div class="row mb-3">
+                                <label for="inputName" class="col-sm-2 col-form-label">Tên thể loại</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="name" th:value="${category.name}">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="inputDes" class="col-sm-2 col-form-label">Mô tả</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="description"
+                                        th:value="${category.description != null} ? ${category.description} : ''">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Cấp độ</label>
+                                <div class="col-sm-10">
+                                    <select class="form-select" aria-label="Default select example" name="parentId">
+                                        <option th:selected="${category.parent == null}" th:value="${null}">Cấp lớn nhất</option>
+                                        <option th:each="item:${categories}" th:value="${item.id}"
+                                            th:text="${item.name}" th:selected="${category.parent != null}? ${item.id == category.parent.id}:${false}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Xác nhận</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script th:fragment="script_after"></script>

@@ -1,0 +1,32 @@
+<div class="top-news-area section-padding-0-100" style="padding-top: 30px;" th:fragment="rss">
+    <div class="container">
+        <h5>Các tin khác</h5>
+        <div class="row">
+            <!-- Single News Area -->
+            <div class="col-12 col-sm-6 col-lg-4" th:each="item:${rss}">
+                <div class="single-blog-post style-2 mb-5">
+                    <!-- Blog Thumbnail -->
+                    <div class="blog-thumbnail" style="height: 210px;">
+                        <a th:attr="href=${item.link}"><img th:attr="src=${item.image}" alt="" style="
+                            height: 100%;
+                            object-fit: cover;"></a>
+                    </div>
+
+                    <!-- Blog Content -->
+                    <div class="blog-content">
+                        <span class="post-date" th:text="${item.date}"></span>
+                        <a th:attr="href=${item.link}" class="post-title" th:text="${item.title}"></a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="load-more-button text-center">
+                    <a href="https://vnexpress.net/" class="btn newsbox-btn">Xem thêm</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

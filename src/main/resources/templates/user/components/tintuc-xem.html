@@ -1,0 +1,35 @@
+<th:block th:fragment= "noibat">
+    <h5 class="row justify-content-center col-12 col-lg-6">Có thể bạn sẽ thích</h5>
+    <section class="video-area bg-img bg-overlay bg-fixed" style="background-image: url(/content/user/img/bg-img/10.jpg);">
+        <!-- Video Slideshow -->
+        <div class="video-slideshow py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Video Slides -->
+                        <div class="video-slides owl-carousel">
+    
+                            <!-- Single News Area -->
+                            <div class="single-blog-post style-3" th:each= "item:${getRandom6Posts}">
+                                <!-- Blog Thumbnail -->
+                                <div class="blog-thumbnail" style="height: 210px;">
+                                    <a th:href="@{'/bai-viet/' + ${item.id}}"><img th:src="@{'/file/' + ${item.image}}" alt="" style="
+                                        height: 100%;
+                                        object-fit: cover;"></a>
+                                </div>
+    
+                                <!-- Blog Content -->
+                                <div class="blog-content">
+                                    <span class="post-date" th:text="${#dates.format(item.pulishDate, 'dd MMM, yyyy')}"></span>
+                                    <a th:href="@{'/bai-viet/' + ${item.id}}" th:text="${item.title}" class="post-title"></a>
+                                    <a class="post-author" th:text="${item.author != null} ? ${item.author.name} : ''"></a>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>

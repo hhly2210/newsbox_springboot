@@ -1,0 +1,78 @@
+<main id="main" class="main" th:fragment="content">
+
+    <div class="pagetitle">
+        <h1>Chỉnh sửa Admin Menu</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item">Quản lý Admin Menu</li>
+                <li class="breadcrumb-item active">Chỉnh sửa Admin Menu</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Biểu mẫu</h5>
+
+                        <!-- General Form Elements -->
+                        <form class="row g-3" enctype="multipart/form-data" method="post">
+                            <input hidden type="text" name="id" th:value="${adminMenu.id}">
+                            <div class="col-md-6">
+                                <label for="inputName" class="form-label">Tên menu</label>
+                                <input type="text" class="form-control" name="name" th:value="${adminMenu.name}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Thuộc cấp</label>
+                                <select class="form-select" aria-label="Default select example" name="parentId">
+                                    <option th:selected="${adminMenu.parent == null}" th:value="${null}">Cấp lớn nhất</option>
+                                        <option th:each="item:${menus}" th:value="${item.id}"
+                                            th:text="${item.name}" th:selected="${adminMenu.parent != null}? ${item.id == adminMenu.parent.id}:${false}">
+                                        </option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputDes" class="form-label">Thứ tự</label>
+                                <input type="number" class="form-control" name="menuOrder" th:value="${adminMenu.menuOrder != null} ? ${adminMenu.menuOrder} : ''" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputDes" class="form-label">Icon</label>
+                                <input type="text" class="form-control" name="icon" th:value="${adminMenu.icon != null} ? ${adminMenu.icon}: ''">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputDes" class="form-label">Đường dẫn</label>
+                                <input type="text" class="form-control" name="link" th:value="${adminMenu.link != null} ? ${adminMenu.link}: ''">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputDes" class="form-label">Tên id</label>
+                                <input type="text" class="form-control" name="idName" th:value="${adminMenu.idName != null} ? ${adminMenu.idName}: ''">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputDes" class="form-label">Tên Lớp</label>
+                                <input type="text" class="form-control" name="className" th:value="${adminMenu.className != null} ? ${adminMenu.className}: ''">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputDes" class="form-label">Tên Target</label>
+                                <input type="text" class="form-control" name="menuTarget" th:value="${adminMenu.menuTarget != null} ? ${adminMenu.menuTarget}: ''">
+                            </div>
+                            <div class="form-check form-switch">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Trạng thái</label>
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="active" onclick="this.value = (this.value === 'true') ? 'false' : 'true'" th:value="${adminMenu.active} ? 'true': 'false'" th:checked= "${adminMenu.active}">
+                            </div>
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Xác nhận</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script th:fragment="script_after"></script>

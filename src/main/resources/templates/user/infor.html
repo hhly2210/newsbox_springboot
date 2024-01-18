@@ -1,0 +1,96 @@
+<th:block th:fragment="content">
+    <!-- ##### Breaking News Area Start ##### -->
+    <section th:replace="~{user/components/section-news.html :: section-news }"></section>
+    <!-- ##### Breaking News Area End ##### -->
+    <section class="contact-area section-padding-100 pt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-12 col-lg-8">
+                    <div class="contact-content mb-100">
+                        <h4 class="mb-30">Thông tin tài khoản</h4>
+                        <!-- Single Contact Info -->
+                        <div class="single-contact-info d-flex align-items-center">
+                            <label class="form-label" th:text="'Họ tên: ' + ${#ctx.session.userName}"></label>
+                        </div>
+
+                        <!-- Single Contact Info -->
+                        <div class="single-contact-info d-flex align-items-center">
+                            <label class="form-label" th:text="'Email: ' + ${#ctx.session.email}"></label>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="accordions mb-100" id="accordion" role="tablist" aria-multiselectable="true">
+                                <!-- single accordian area -->
+                                <div class="panel single-accordion">
+                                    <h6><a role="button" class="" aria-expanded="true" aria-controls="collapseOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Thay đổi thông tin tài khoản
+                                            <span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                            <span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                            </a></h6>
+                                    <div id="collapseOne" class="accordion-content collapse show" >
+                                        <div class="contact-form-area mt-30 mb-30">
+                                            <form th:action= "@{'/thong-tin-tai-khoan/inforedit'}" method="post">
+                                                <div class="row">
+                                                    <input type="text" name="id" th:value="${#authentication.principal.id}" hidden>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" name="name" id="name" th:value="${#ctx.session.userName}" placeholder="Họ tên">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <input type="email" class="form-control" name="email" id="email" th:value="${#ctx.session.email}" placeholder="E-mail">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <button class="btn mt-15" type="submit">Xác nhận</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- single accordian area -->
+                                <div class="panel single-accordion">
+                                    <h6>
+                                        <a role="button" class="" aria-expanded="true" aria-controls="collapseTwo" data-parent="#accordion" data-toggle="collapse" href="#collapseTwo">Đổi mật khẩu
+                                                <span class="accor-open"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                                <span class="accor-close"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                                </a>
+                                    </h6>
+                                    <div id="collapseTwo" class="accordion-content collapse show">
+                                        <div class="contact-form-area mt-30 mb-30">
+                                            <form th:action= "@{'/thong-tin-tai-khoan/inforpassword'}" method="post">
+                                                <div class="row">
+                                                    <input type="text" name="id" th:value="${#authentication.principal.id}" hidden>
+                                                    <div class="col-12">
+                                                        <input type="password" name="password" class="form-control" id="yourPassword" placeholder="Mật khẩu cũ"
+                                                            required>
+                                                        <div class="invalid-feedback">Vui lòng nhập mật khẩu!</div>
+                                                        <div style="width:20%;margin-top:.25rem;font-size:80%;color:#dc3545" th:if= "${type == 'password' && errorMessger != null}" th:text="${errorMessger}"></div>
+                                                </div>
+                                                    <div class="col-12">
+                                                        <input type="password" name="newpassword" class="form-control" id="newPassword" placeholder="Mật khẩu mới"
+                                                            required>
+                                                        <div class="invalid-feedback">Vui lòng nhập mật khẩu!</div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <button class="btn mt-15" type="submit">Thay đổi mật khẩu</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-9 col-md-6 col-lg-4">
+                    <div th:replace="~{user/components/noibat.html :: noibat }"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>

@@ -1,0 +1,107 @@
+<header class="header-area" th:fragment="header">
+    <!-- Navbar Area -->
+    <div class="newsbox-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container-fluid">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="newsboxNav">
+
+                    <!-- Nav brand -->
+                    <a href="index.html" class="nav-brand"><img src="/content/user/img/core-img/logo.png" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="/">Trang chủ</a></li>
+                                <th:block th:each="item:${@catagoryService.getParent()}">
+                                    <li><a th:href="@{'/the-loai/' + ${item.slug}}" th:text="${item.name}"></a>
+                                        <!-- Kiểm tra xem có danh sách con không -->
+                                        <th:block th:if="${item.childrens != null and item.childrens.size() > 0}">
+                                            <ul class="dropdown">
+                                                <li th:each="itemChildren:${item.childrens}"><a
+                                                        th:href="@{'/the-loai/' + ${itemChildren.slug}}"
+                                                        th:text="${itemChildren.name}"></a></li>
+                                            </ul>
+                                        </th:block>
+                                    </li>
+                                </th:block>
+
+
+                                <li><a href="#">Tất cả</a>
+                                    <div class="megamenu">
+                                        <th:block th:each="item:${@catagoryService.getCategories(0)}">
+                                            <ul class="single-mega cn-col-4">
+                                                <li><a th:href="@{'/the-loai/' + ${item.slug}}"
+                                                        th:text="${item.name}"></a></li>
+                                            </ul>
+                                        </th:block>
+                                        <th:block th:each="item:${@catagoryService.getCategories(1)}">
+                                            <ul class="single-mega cn-col-4">
+                                                <li><a th:href="@{'/the-loai/' + ${item.slug}}"
+                                                        th:text="${item.name}"></a></li>
+                                            </ul>
+                                        </th:block>
+                                        <th:block th:each="item:${@catagoryService.getCategories(2)}">
+                                            <ul class="single-mega cn-col-4">
+                                                <li><a th:href="@{'/the-loai/' + ${item.slug}}"
+                                                        th:text="${item.name}"></a></li>
+                                            </ul>
+                                        </th:block>
+                                        <th:block th:each="item:${@catagoryService.getCategories(3)}">
+                                            <ul class="single-mega cn-col-4">
+                                                <li><a th:href="@{'/the-loai/' + ${item.slug}}"
+                                                        th:text="${item.name}"></a></li>
+                                            </ul>
+                                        </th:block>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="search-box">
+                                        <form th:action="@{'/search'}" method="get">
+                                            <input type="text" name="keyword" class="search-input" placeholder="Tìm kiếm...">
+                                            <button type="submit" style="border: none; outline: none;"><i class="bi bi-search"></i></button>
+                                        </form>
+                                    </div>
+                                </li>
+                                <li>
+                                    <th:block th:if="${#ctx.session.isEmpty()}">
+                                        <a th:href= "@{'/login'}">
+                                            <i class="bi bi-person"></i>
+                                            <span>Đăng nhập</span>
+                                        </a>
+                                    </th:block>
+                                    <th:block th:unless="${#ctx.session.isEmpty()}">
+                                        <a>
+                                            <i class="bi bi-person"></i>
+                                            <span th:text="${#ctx.session.userName}"></span>
+                                        </a>
+                                        <ul class="dropdown">
+                                            <li><a th:href="@{'/thong-tin-tai-khoan'}">Thông tin chung</a></li>
+                                            <li><a th:href="@{'/logout'}">Đăng xuất</a></li>
+                                        </ul>
+                                    </th:block>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Nav End -->
+
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,65 @@
+<main id="main" class="main" th:fragment="content">
+
+    <div class="pagetitle">
+        <h1>Danh sách Liên hệ</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">Home</a></li>
+                <li class="breadcrumb-item">Quản lý Liên hệ</li>
+                <li class="breadcrumb-item active">Danh sách</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Danh sách</h5>
+
+                        <!-- Table with stripped rows -->
+                        <table class="table datatable" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Tên</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Lời nhắn</th>
+                                    <th scope="col">Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="item:${contacts}">
+                                    <th scope="row" th:text="${item.id}"></th>
+                                    <td th:text="${item.fullName != null} ? ${item.fullName} : ''"></td>
+                                    <td th:text="${item.email != null} ? ${item.email} : ''"></td>
+                                    <td th:text="${item.message != null} ? ${item.message} : ''"></td>
+                                    <td>
+                                        <a data-bs-toggle="modal" data-bs-target="#deleteModal" title="Xoá"
+                                            th:attr="onclick='deleteModal(\'/admin/contacts/delete?id=' + ${item.id} + '\')'">
+                                            <i class="bx bx-trash me-1"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Modal Delete -->
+    <div th:replace="~{__${modalDelete}__ :: modal_delete }"></div>
+    <!-- End Modal tables -->
+    <script th:inline="javascript">
+        function deleteModal(url) {
+            var deleteModalForm = document.querySelector('#deleteModal form');
+            deleteModalForm.action = url;
+        }
+    </script>
+</main>
+<script th:fragment="script_after"></script>

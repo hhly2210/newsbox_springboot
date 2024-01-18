@@ -1,0 +1,230 @@
+<div th:fragment="content">
+    <!-- ##### Breaking News Area Start ##### -->
+    <section th:replace="~{user/components/section-news.html :: section-news }"></section>
+    <!-- ##### Breaking News Area End ##### -->
+    <div class="hero-area">
+        <!-- Hero Post Slides -->
+        <div class="hero-post-slides owl-carousel">
+
+            <!-- Single Slide -->
+            <div class="single-slide">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Single Blog Post Area -->
+                        <div class="col-12 col-md-6" style="height: 500px;">
+                            <div class="single-blog-post style-1" data-animation="fadeInUpBig" data-delay="100ms"
+                                data-duration="1000ms" style="height: 100%;">
+                                <!-- Blog Thumbnail -->
+                                <div class="blog-thumbnail bg-overlay" style="
+                                height: 100%;">
+                                    <a th:href="@{'/bai-viet/' + ${news3Posts.get(0).id}}"><img
+                                            th:src="@{'/file/' + ${news3Posts.get(0).image}}" alt="" style="
+                                        height: 100%;
+                                        object-fit: cover;"></a>
+                                </div>
+
+                                <!-- Blog Content -->
+                                <div class="blog-content">
+                                    <span class="post-date" th:text="${#dates.format(news3Posts.get(0).pulishDate, 'dd MMM, yyyy')}"></span>
+                                    <a th:href="@{'/bai-viet/' + ${news3Posts.get(0).id}}" class="post-title" th:text="${news3Posts.get(0).title}"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6" style="height: 500px;">
+                            <!-- Single Blog Post Area -->
+                            <div class="single-blog-post style-1 mb-30" data-animation="fadeInUpBig" data-delay="300ms"
+                                data-duration="1000ms" style="height: 235px;">
+                                <!-- Blog Thumbnail -->
+                                <div class="blog-thumbnail bg-overlay" style="height: 100%;">
+                                    <a><img style="object-fit: cover;height: 100%;" th:src="@{'/file/' + ${news3Posts.get(1).image}}" alt=""></a>
+                                </div>
+
+                                <!-- Blog Content -->
+                                <div class="blog-content">
+                                    <span class="post-date" th:text="${#dates.format(news3Posts.get(1).pulishDate, 'dd MMM, yyyy')}"></span>
+                                    <a th:href="@{'/bai-viet/' + ${news3Posts.get(1).id}}" class="post-title" th:text="${news3Posts.get(1).title}"></a>
+                                </div>
+                            </div>
+                            <!-- Single Blog Post Area -->
+                            <div class="single-blog-post style-1" data-animation="fadeInUpBig" data-delay="500ms"
+                                data-duration="1000ms" style="height: 235px;">
+                                <!-- Blog Thumbnail -->
+                                <div class="blog-thumbnail bg-overlay" style="height: 100%;">
+                                    <a><img style="object-fit: cover;height: 100%;" th:src="@{'/file/' + ${news3Posts.get(2).image}}" alt=""></a>
+                                </div>
+
+                                <!-- Blog Content -->
+                                <div class="blog-content">
+                                    <span class="post-date" th:text="${#dates.format(news3Posts.get(2).pulishDate, 'dd MMM, yyyy')}"></span>
+                                    <a th:href="@{'/bai-viet/' + ${news3Posts.get(2).id}}" class="post-title" th:text="${news3Posts.get(2).title}"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="intro-news-area section-padding" style="padding-top: 30px;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Intro News Tabs Area -->
+                <div class="col-12 col-lg-8">
+                    <div class="intro-news-tab">
+
+                        <!-- Intro News Filter -->
+                        <div class="intro-news-filter d-flex justify-content-between">
+                            <h6>Tất cả tin tức</h6>
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a th:each= "item,i:${getTopPostsByCategories}" th:class="${'nav-item nav-link' + (i.index==0 ? ' active' : '')}" 
+                                    th:id= "${item.key.id}" data-toggle="tab" th:href= "@{'#' + ${item.key.slug}}"
+                                        role="tab" th:attr= "aria-controls=${item.key.id}, aria-selected= ${i.index==0 ? 'true' : 'false'}" th:text="${item.key.name}"></a>
+                                </div>
+                            </nav>
+                        </div>
+
+                        <div class="tab-content" id="nav-tabContent">
+                            <div th:each= "item,i:${getTopPostsByCategories}" th:class="${'tab-pane fade' + (i.index==0 ? ' show active' : '')}" 
+                            th:id= "${item.key.slug}" role="tabpanel" th:attr= "aria-labelledby=${item.key.id}" >
+                                <div class="row">
+                                    <th:block th:each= "post,y:${item.value}">
+                                        <!-- Single News Area -->
+                                        <div class="col-12 col-sm-6" th:if= "${y.index < 2}">
+                                            <div class="single-blog-post style-2 mb-5">
+                                                <!-- Blog Thumbnail -->
+                                                <div class="blog-thumbnail" style="height: 250px">
+                                                    <a th:href="@{'/bai-viet/' + ${post.id}}"><img th:src="@{'/file/' + ${post.image}}" alt="" style="
+                                                        height: 100%;
+                                                        object-fit: cover;"></a>
+                                                </div>
+    
+                                                <!-- Blog Content -->
+                                                <div class="blog-content">
+                                                    <span class="post-date" th:text="${#dates.format(post.pulishDate, 'dd MMM, yyyy')}"></span>
+                                                    <a th:href="@{'/bai-viet/' + ${post.id}}" class="post-title" th:text="${post.title}"></a>
+                                                    <a class="post-author" th:text="${post.author != null} ? ${post.author.name}:''"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6" th:if= "${y.index > 1}">
+                                            <div class="single-blog-post d-flex style-4 mb-30">
+                                                <!-- Blog Thumbnail -->
+                                                <div class="blog-thumbnail" style="height: 80px">
+                                                    <a th:href="@{'/bai-viet/' + ${post.id}}"><img th:src="@{'/file/' + ${post.image}}" alt="" style="
+                                                        height: 100%;
+                                                        object-fit: cover;"></a>
+                                                </div>
+    
+                                                <!-- Blog Content -->
+                                                <div class="blog-content">
+                                                    <span class="post-date" th:text="${#dates.format(post.pulishDate, 'dd MMM, yyyy')}"></span>
+                                                    <a th:href="@{'/bai-viet/' + ${post.id}}" class="post-title" th:text="${post.title}"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Widget -->
+                <div class="col-12 col-sm-9 col-md-6 col-lg-4">
+                    <div th:replace="~{user/components/noibat.html :: noibat }"></div>
+                    <div class="sidebar-area">
+                        <!-- Add Widget -->
+                        <div class="single-widget-area add-widget mb-30" id="resultContainer">
+                        </div>
+                        <!-- <script>
+                            const url = 'http://www.petrolimex.com.vn/';
+
+                            fetch(url)
+                                .then(response => response.text())
+                                .then(content => {
+                                    const firstStep = content.split('<div id="vie_p6_PortletContent">')[1];
+                                    const secondStep = firstStep.split('</div>')[0];
+
+                                    const xang_95_4_v1 = stripTags(secondStep.split('</div>')[4]);
+                                    const xang_95_4_v2 = stripTags(secondStep.split('</div>')[5]);
+
+                                    const xang_95_3_v1 = stripTags(secondStep.split('</div>')[8]);
+                                    const xang_95_3_v2 = stripTags(secondStep.split('</div>')[9]);
+
+                                    const xang_95_2_v1 = stripTags(secondStep.split('</div>')[12]);
+                                    const xang_95_2_v2 = stripTags(secondStep.split('</div>')[13]);
+
+                                    const xang_92_2_v1 = stripTags(secondStep.split('</div>')[16]);
+                                    const xang_92_2_v2 = stripTags(secondStep.split('</div>')[17]);
+
+                                    const xang_do_v1 = stripTags(secondStep.split('</div>')[20]);
+                                    const xang_do_v2 = stripTags(secondStep.split('</div>')[21]);
+
+                                    const dauhoa_v1 = stripTags(secondStep.split('</div>')[24]);
+                                    const dauhoa_v2 = stripTags(secondStep.split('</div>')[25]);
+
+                                    const result = {
+                                        "0": {
+                                            "attachment": {
+                                                "type": "template",
+                                                "payload": {
+                                                    "template_type": "generic",
+                                                    "image_aspect_ratio": "square",
+                                                    "elements": [
+                                                        {
+                                                            "title": "Xăng RON 95-IV",
+                                                            "image_url": "fs.petrolimex.com.vn/Files/6783DC1271FF449E95B74A9520964169/image=jpeg/90cab911f8a0497ba9b264fe4bffd30d/02.jpg",
+                                                            "subtitle": `Vùng 1: ${xang_95_4_v1}đ - Vùng 2: ${xang_95_4_v2}đ`
+                                                        },
+                                                        {
+                                                            "title": "Xăng RON 95-III",
+                                                            "image_url": "fs.petrolimex.com.vn/Files/6783DC1271FF449E95B74A9520964169/image=jpeg/90cab911f8a0497ba9b264fe4bffd30d/02.jpg",
+                                                            "subtitle": `Vùng 1: ${xang_95_3_v1}đ - Vùng 2: ${xang_95_3_v2}đ`
+                                                        },
+                                                        {
+                                                            "title": "Xăng RON 92-II",
+                                                            "image_url": "fs.petrolimex.com.vn/Files/6783DC1271FF449E95B74A9520964169/image=jpeg/90cab911f8a0497ba9b264fe4bffd30d/02.jpg",
+                                                            "subtitle": `Vùng 1: ${xang_95_2_v1}đ - Vùng 2: ${xang_95_2_v2}đ`
+                                                        },
+                                                        {
+                                                            "title": "E5 RON 92-II",
+                                                            "image_url": "fs.petrolimex.com.vn/Files/6783DC1271FF449E95B74A9520964169/image=jpeg/90cab911f8a0497ba9b264fe4bffd30d/02.jpg",
+                                                            "subtitle": `Vùng 1: ${xang_92_2_v1}đ - Vùng 2: ${xang_92_2_v2}đ`
+                                                        },
+                                                        {
+                                                            "title": "DO 0,05S",
+                                                            "image_url": "fs.petrolimex.com.vn/Files/6783DC1271FF449E95B74A9520964169/image=jpeg/90cab911f8a0497ba9b264fe4bffd30d/02.jpg",
+                                                            "subtitle": `Vùng 1: ${xang_do_v1}đ - Vùng 2: ${xang_do_v2}đ`
+                                                        },
+                                                        {
+                                                            "title": "Dầu hỏa",
+                                                            "image_url": "fs.petrolimex.com.vn/Files/6783DC1271FF449E95B74A9520964169/image=jpeg/90cab911f8a0497ba9b264fe4bffd30d/02.jpg",
+                                                            "subtitle": `Vùng 1: ${dauhoa_v1}đ - Vùng 2: ${dauhoa_v2}đ`
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    };
+
+                                    const resultContainer = document.getElementById('resultContainer');
+                                    const resultElement = document.createElement('div');
+                                    resultElement.innerHTML = JSON.stringify(result, null, 2);
+
+                                    resultContainer.appendChild(resultElement);
+                                })
+                                .catch(error => console.error(error));
+
+                            function stripTags(html) {
+                                return html.replace(/<\/?[^>]+(>|$)/g, "");
+                            }
+                        </script> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
